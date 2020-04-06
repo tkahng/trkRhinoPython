@@ -46,7 +46,7 @@ def copySourceData(obj, source):
     if rs.IsUserText(source) == 0:
         return
     keyValue = sourceKeyValue(source)
-    print keyValue
+    # print keyValue
     map(lambda x, y: rs.SetUserText(obj, x, y), keyValue[0], keyValue[1])
 
 def valuesFromLayer(obj):
