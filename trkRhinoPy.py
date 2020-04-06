@@ -57,6 +57,12 @@ def valuesFromLayer(obj):
     keys = layer.split()
     return keys
 
+def hatchFromSrf(srf):
+    border = rs.DuplicateSurfaceBorder(srf, type=0)
+    hatch = rs.AddHatches(border, "SOLID")
+    rs.DeleteObjects(border)
+    return hatch    
+
 def setValueByLayer(obj, keys):
     # keys = 'usage function'
     keys = keys.split()
@@ -108,21 +114,29 @@ def calcArea(srfs):
 
 def rebuildSrfCrv(obj):
     crv = rs.DuplicateSurfaceBorder(obj, type=0)
-    rs.SimplifyCurve(crv)
+    map(lambda x: rs.SimplifyCurve(x), crv)
     return crv
+
+# def rebuildSrfEdge(obj):
+#     crv = rs.DuplicateSurfaceBorder(obj, type=0)
+#     rs.SimplifyCurve(crv)
+#     return crv
 
 def rebuildBrep(obj):
     srfs = rs.ExplodePolysurfaces(obj)
     crvs = map(rebuildSrfCrv, srfs)
     rs.DeleteObjects(srfs)
-    newSrfs = rs.AddPlanarSrf(crvs)
+    newSrfs = map(rs.AddPlanarSrf, crvs)
+    # newSrfs = rs.AddPlanarSrf(crvs)
     rs.DeleteObjects(crvs)
     newbrep = rs.JoinSurfaces(newSrfs, delete_input=True)
-    copySourceLayer(newbrep, obj)
-    copySourceData(newbrep, obj)
+    try:
+        copySourceLayer(newbrep, obj)
+        copySourceData(newbrep, obj)
+    except:
+        pass
     rs.DeleteObject(obj)
     # return newbrep
-
 
 def getBottomFace(obj):
     faces = rs.ExplodePolysurfaces(obj)
@@ -138,7 +152,6 @@ def getSrfNormal(srf):
     point = rs.EvaluateSurface(srf, u, v)
     param = rs.SurfaceClosestPoint(srf, point)
     return rs.SurfaceNormal(srf, param)
-        
 
 def offsetInside(crv, dist):
     rs.SimplifyCurve(crv)
@@ -151,6 +164,17 @@ def brepGetZ(obj):
     maxZ = box[-1].Z
     height = maxZ - minZ
     return minZ, maxZ, round(height, 2)
+
+def moveSrftoZ(srf):
+    domainU = rs.SurfaceDomain(srf, 0)
+    domainV = rs.SurfaceDomain(srf, 1)
+    u = domainU[1]/2.0
+    v = domainV[1]/2.0
+    point = rs.EvaluateSurface(srf, u, v)
+    # vec = [0, 0, point.Z]
+    # vec = rs.VectorReverse(vec)
+    # vec = [0,0,vec.Z]
+    rs.MoveObjects(srf, rs.VectorReverse([0, 0, point.Z]))
 
 """Level Tools"""
 
@@ -195,10 +219,10 @@ def groupByElevation(objs, isUG):
 
 def setLevel(sortedpairs, isUG, func):
     for idx, pairs in enumerate(sortedpairs, start=1):
-        grade = 'AG'
+        grade = 'ag'
         if isUG: 
             idx = -idx
-            grade = 'UG'
+            grade = 'ug'
         map(lambda x: func(x, idx, grade), pairs)
 
 # def setLvlHeight(sortedpairs):

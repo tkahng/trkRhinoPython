@@ -25,6 +25,10 @@ def outputFunc(objs):
         # print resultFaces
         for resultFace in resultFaces:
             trp.copySourceLayer(resultFace, obj)
+            try:
+                trp.copySourceData(resultFace, obj)
+            except:
+                pass
             bottomFaces.append(resultFace)
     rs.SelectObjects(bottomFaces)
     group = rs.AddGroup()

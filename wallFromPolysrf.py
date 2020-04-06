@@ -1,7 +1,7 @@
 import rhinoscriptsyntax as rs
 
 polySrfs = rs.GetObjects('select polysrfs', rs.filter.polysurface, preselect=True)
-width = rs.GetReal("width", 0.4)
+width = rs.GetReal("width", 0.2)
 height = rs.GetReal("height", 3)
 
 # if polySrf: 
