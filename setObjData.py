@@ -10,7 +10,8 @@ keys = 'usage func'
 def Func(x):
     # trp.valuesFromLayer(x)
     trp.setValueByLayer(x,keys)
-    # trp.setSrfAreaValue(x)
+    trp.setObjAreaValue(x)
+    
 
 def setClass(obj):
     classKeys = 'units public'
