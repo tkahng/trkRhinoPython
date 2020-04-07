@@ -102,15 +102,21 @@ def boolToggle(input):
         return True
 
 """Geo Utils """
-
-def calcArea(srfs):
-    areas = []
-    for srf in srfs:
-        areas.append(rs.SurfaceArea(srf)[0])
-    totalArea = round(sum(areas), 2)
+def calcArea(srf):
+    area = rs.SurfaceArea(srf)[0]
+    totalArea = round(area, 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
+
     # txt = rs.ClipboardText(totalArea)
+# def calcArea(srfs):
+#     areas = []
+#     for srf in srfs:
+#         areas.append(rs.SurfaceArea(srf)[0])
+#     totalArea = round(sum(areas), 2)
+#     totalAreaPy = round(totalArea/3.3058, 2)
+#     return [totalArea, totalAreaPy]
+#     # txt = rs.ClipboardText(totalArea)
 
 def rebuildSrfCrv(obj):
     crv = rs.DuplicateSurfaceBorder(obj, type=0)

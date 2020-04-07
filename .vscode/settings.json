@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\Tchunoo\\Miniconda3\\envs\\clr\\python.exe",
+    "python.pythonPath": "C:\\Miniconda3\\envs\\clr\\python.exe",
     "python.linting.enabled": false,
     // python autocomplete extra path
     "python.autoComplete.extraPaths": [
