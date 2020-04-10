@@ -76,7 +76,7 @@ def setSrfAreaValue(obj):
 
 def setBrepFA(obj):
     faces = getBottomFace(obj)
-    area = calcArea(faces)
+    area = calcAreas(faces)
     rs.SetUserText(obj, "area", str(area[0]))
     rs.SetUserText(obj, "areapy", str(area[1]))
     rs.DeleteObjects(faces)
@@ -107,16 +107,16 @@ def calcArea(srf):
     totalArea = round(area, 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
-
     # txt = rs.ClipboardText(totalArea)
-# def calcArea(srfs):
-#     areas = []
-#     for srf in srfs:
-#         areas.append(rs.SurfaceArea(srf)[0])
-#     totalArea = round(sum(areas), 2)
-#     totalAreaPy = round(totalArea/3.3058, 2)
-#     return [totalArea, totalAreaPy]
-#     # txt = rs.ClipboardText(totalArea)
+
+def calcAreas(srfs):
+    areas = []
+    for srf in srfs:
+        areas.append(rs.SurfaceArea(srf)[0])
+    totalArea = round(sum(areas), 2)
+    totalAreaPy = round(totalArea/3.3058, 2)
+    return [totalArea, totalAreaPy]
+    # txt = rs.ClipboardText(totalArea)
 
 def rebuildSrfCrv(obj):
     crv = rs.DuplicateSurfaceBorder(obj, type=0)
@@ -252,3 +252,40 @@ def setLevelforDatum(x, idx, grade):
     rs.SetUserText(x[0], "level", str(idx))
     rs.SetUserText(x[0], "grade", grade) 
     rs.SetUserText(x[0], "elevation", str(x[1]))
+
+
+"""Block Tools"""
+
+def redefineBlockScale(block):
+    block_name = rs.BlockInstanceName(block)
+    # rs.RenameBlock (block_name, "{}-old".format(block_name))
+    blockXform = rs.BlockInstanceXform(block)
+    plane = rs.PlaneTransform(rs.WorldXYPlane(), blockXform)
+    cob = rs.XformChangeBasis(plane, rs.WorldXYPlane())
+    cob_inverse = rs.XformChangeBasis(rs.WorldXYPlane(), plane)
+    refBlock = rs.TransformObjects(block, cob_inverse, True )
+    exploded = rs.ExplodeBlockInstance(refBlock)
+    rs.AddBlock(exploded, rs.WorldXYPlane().Origin, block_name, True)
+    newBlock = rs.InsertBlock2(block_name, cob)
+    copySourceLayer(newBlock, block)
+    try:
+        copySourceData(newBlock, block)
+    except:
+        pass
+    rs.DeleteObjects(block)
+
+def resetBlockScale(block):
+    block_name = rs.BlockInstanceName(block)
+    blockXform = rs.BlockInstanceXform(block)
+    plane = rs.PlaneTransform(rs.WorldXYPlane(), blockXform)
+    # newplane = rs.CreatePlane(plane.Origin, plane.XAxis, plane.YAxis)
+    # cob = rs.XformChangeBasis(newplane, rs.WorldXYPlane())
+    cob = rs.XformChangeBasis(plane, rs.WorldXYPlane())
+    newBlock = rs.InsertBlock2(block_name, cob)
+    copySourceLayer(newBlock, block)
+    try:
+        copySourceData(newBlock, block)
+    except:
+        pass
+    rs.DeleteObjects(block)
+    return newBlock
