@@ -3,13 +3,13 @@ import trkRhinoPy as trp
 
 objs = rs.GetObjects("Select Objects", preselect=True)
 
-
 def mapstr(x):
     return str(x) + "\n"
 
 def outputtext(obj):    
     kv = trp.sourceKeyValue(obj)
-    newstrs = map(mapstr, kv)
+    zipbObj = zip(kv[0], kv[1])
+    newstrs = map(mapstr, zipbObj)
     return ' '.join(newstrs)
 
 def showeto(objs):

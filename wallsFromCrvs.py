@@ -9,6 +9,7 @@ plane = rs.ViewCPlane()
 
 
 def wallBaseSrf(crv, width):
+    rs.SimplifyCurve(crv)
     if rs.IsCurveClosed(crv):
         domain = rs.CurveDomain(crv)
         parameter = (domain[0] + domain[1])/2.0

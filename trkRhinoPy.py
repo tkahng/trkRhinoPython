@@ -87,7 +87,7 @@ def setObjAreaValue(obj):
     elif rs.IsPolysurface(obj) and rs.IsPolysurfaceClosed(obj):
         setBrepFA(obj)
     else:
-        pass
+        rs.SetUserText(obj, "area", 'na')
 
 def setBrepHeight(obj):
     if rs.IsPolysurface(obj) and rs.IsPolysurfaceClosed(obj):
