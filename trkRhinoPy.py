@@ -50,6 +50,14 @@ def copySourceData(obj, source):
     map(lambda x, y: rs.SetUserText(obj, x, y), keyValue[0], keyValue[1])
 
 def valuesFromLayer(obj):
+    """get values from layer name
+    
+    Arguments:
+        obj {obj} -- any object with a attribute descriptive layer name
+    
+    Returns:
+        list -- list of values
+    """    
     layer = rs.ObjectLayer(obj)
     if "::" in layer:
         layer = layer.split("::")
@@ -64,7 +72,6 @@ def hatchFromSrf(srf):
     return hatch    
 
 def setValueByLayer(obj, keys):
-    # keys = 'usage function'
     keys = keys.split()
     values = valuesFromLayer(obj)
     values[1], values[-1] = values[-1], values[1]
