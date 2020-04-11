@@ -14,7 +14,7 @@
     ],
 
     "python.terminal.activateEnvInCurrentTerminal": true,
-    // "python.jediEnabled": false,
+    "python.jediEnabled": false,
     // // Enable/Disable rhinopython
     // "RhinoPython.Enabled": true,
     // // True if you want to reset script engine every time you send code, otherwise False

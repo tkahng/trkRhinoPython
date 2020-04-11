@@ -5,7 +5,7 @@ objs = rs.GetObjects('select objects', preselect=True)
 
 rs.EnableRedraw(False)
 
-keys = 'usage func'
+keys = 'usage func type'
 
 def Func(x):
     # trp.valuesFromLayer(x)
