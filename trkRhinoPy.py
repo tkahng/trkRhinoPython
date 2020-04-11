@@ -256,7 +256,7 @@ def setLevelforDatum(x, idx, grade):
 
 """Block Tools"""
 
-def redefineBlockScale(block):
+def redefineBlockScale(block, new):
     block_name = rs.BlockInstanceName(block)
     # rs.RenameBlock (block_name, "{}-old".format(block_name))
     blockXform = rs.BlockInstanceXform(block)
