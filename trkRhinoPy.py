@@ -75,16 +75,8 @@ def setValueByLayer(obj, keys):
     keys = keys.split()
     values = valuesFromLayer(obj)
     values[1], values[-1] = values[-1], values[1]
-    print values
     kv = zip(keys, values)
     map(lambda x: rs.SetUserText(obj, x[0], x[1]), kv)
-
-# def setValueByLayer(obj, keys):
-#     # keys = 'usage function'
-#     keys = keys.split()
-#     values = valuesFromLayer(obj)
-#     map(lambda x,y: rs.SetUserText(obj, x, y), keys, values)
-
 
 def setSrfAreaValue(obj):
     area = calcArea(obj)
