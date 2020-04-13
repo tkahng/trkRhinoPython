@@ -132,11 +132,6 @@ def rebuildSrfCrv(obj):
     map(lambda x: rs.SimplifyCurve(x), crv)
     return crv
 
-# def rebuildSrfEdge(obj):
-#     crv = rs.DuplicateSurfaceBorder(obj, type=0)
-#     rs.SimplifyCurve(crv)
-#     return crv
-
 def rebuildBrep(obj):
     srfs = rs.ExplodePolysurfaces(obj)
     crvs = map(rebuildSrfCrv, srfs)
@@ -239,12 +234,6 @@ def setLevel(sortedpairs, isUG, func):
             idx = -idx
             grade = 'ug'
         map(lambda x: func(x, idx, grade), pairs)
-
-# def setLvlHeight(sortedpairs):
-#     els = map(lambda x: x[1], sortedpairs)
-#     ptPairs = []
-#     for i in els:
-#         ptPairs
 
 def setDictforDatum(x, idx, grade):
     keys = 'level grade elevation'
