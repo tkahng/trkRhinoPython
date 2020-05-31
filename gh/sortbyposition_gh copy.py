@@ -3,17 +3,7 @@ import ghpythonlib.treehelpers as th
 import scriptcontext as sc
 import Rhino as rc
 import System.Guid as Guid
-# import Grasshopper as gh
-
-# sc.doc = rc.RhinoDoc.ActiveDoc
-# # rc.RhinoDoc.Objects.
-# sc.doc = rc.RhinoDoc.ActiveDoc
-# rc.RhinoDoc.SelectObjects
-# rs.object
-print(rs.coercerhinoobject(guids[0]))
-print(type(srfs[0]))
-print(rs.SurfaceAreaCentroid(srfs[0]))
-print(rs.coerceguid(srfs[0]))
+import Grasshopper as gh
 
 seq = [x * dist + dist for x in range(count)]
 intervals = [(x - dist, x) for x in seq]
@@ -24,18 +14,16 @@ def groupByPosition(pairs):
     # print newpairs
     return sorted(newpairs, key=lambda x:x[0][1])
 
-srfpairs = [[x, rs.SurfaceAreaCentroid(x)[0][axis], str(x)] for x in srfs]
-# guidout = [rs.coercerhinoobject(x) for x in guids]
-print(srfpairs[0][0])
+guidlist = []
 
-# grouped = groupByPosition(srfpairs)
-
-# Intervals = th.list_to_tree(intervals)
+sc.doc = rc.RhinoDoc.ActiveDoc
+srfpairs = [[x, rs.SurfaceAreaCentroid(x)[0][axis], rs.ObjectLayer(x)] for x in guids]
+sc.doc = ghdoc
 
 b = th.list_to_tree(groupByPosition(srfpairs))
 
 a = srfs
-# b = guidout
+
 """[summary]
 """
 
