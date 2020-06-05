@@ -252,6 +252,14 @@ def setLevelforDatum(x, idx, grade):
     rs.SetUserText(x[0], "grade", grade) 
     rs.SetUserText(x[0], "elevation", str(x[1]))
 
+"""Dictionary Json"""
+
+def createObjDict(obj):
+    objkeys = [ x for x in rs.GetUserText(obj) if "BakeName" not in x ]
+    objvals = map(lambda x: rs.GetUserText(obj, x), objkeys)
+    return dict(zip(objkeys, objvals))
+
+    
 
 """Block Tools"""
 

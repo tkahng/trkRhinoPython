@@ -10,6 +10,7 @@ def process(objs, grade, func):
     isUG = trp.boolToggle(grade)
     groups = trp.groupByElevation(objs, isUG)
     trp.setLevel(groups, isUG, func)
+    [trp.setBrepHeight(obj) for obj in objs]
 
 if __name__ == '__main__':
     process(objs, grade, trp.setLevelforDatum)  

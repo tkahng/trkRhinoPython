@@ -8,3 +8,4 @@ import Rhino as rc
 sc.doc = rc.RhinoDoc.ActiveDoc
 
 a = rs.BlockInstanceName(x)
+b = rs.BlockInstanceXform(x)
