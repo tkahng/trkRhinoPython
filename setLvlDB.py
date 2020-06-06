@@ -9,7 +9,6 @@ objs = rs.GetObjects('select objs', rs.filter.surface|rs.filter.curve|rs.filter.
 levels = map(trp.createObjDict, objs)
 
 sc.sticky["levels"] = json.dumps(levels)
-
 rs.SetDocumentUserText("levels", json.dumps(levels))
 
 
