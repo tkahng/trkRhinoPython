@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "..\\rhinotools"
+		},
+		{
+			"path": "..\\rhino-developer-samples\\rhinopython"
 		}
 	],
 	"settings": {
