@@ -272,7 +272,7 @@ def createObjDict(obj):
 
 """Block Tools"""
 
-def redefineBlockScale(block, new):
+def redefineBlockScale(block):
     block_name = rs.BlockInstanceName(block)
     # rs.RenameBlock (block_name, "{}-old".format(block_name))
     blockXform = rs.BlockInstanceXform(block)
