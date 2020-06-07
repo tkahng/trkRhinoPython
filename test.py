@@ -1,11 +1,21 @@
-import trkRhinoPy as trp
-import rhinoscriptsyntax as rs
-import rhinopythonscripts as rps
-import Rhino
-objs = rs.GetObjects()
+# import trkRhinoPy as trp
+# import rhinoscriptsyntax as rs
+# from rhinopythonscripts.GeomTools import getSelected
+# from rhinopythonscripts import Smart
+# import Rhino
 
-rhobjlist = rps
+# # objs = rs.GetObjects()
 
-sf = rps.RhinoObjectsToSmartFeatures(objs)
+# rhobjlist = getSelected()
 
-print sf[0].attributes
+# sf = Smart.RhinoObjectsToSmartFeatures(rhobjlist)
+
+# print sf[0].attributes
+
+import Rhino.Geometry
+import Grasshopper as gh
+
+gh.tree
+
+import 
+rs.GetObject()
