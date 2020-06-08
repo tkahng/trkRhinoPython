@@ -9,7 +9,7 @@ keys = 'usage func type'
 
 def Func(x):
     # trp.valuesFromLayer(x)
-    trp.setValueByLayer(x,keys)
+    # trp.setValueByLayer(x,keys)
     trp.setObjAreaValue(x)
     
 
@@ -24,7 +24,7 @@ def setClass(obj):
 
 def applyFunc(objs):
     map(Func, objs)
-    map(setClass, objs)
+    # map(setClass, objs)
 
 if objs:
     applyFunc(objs)

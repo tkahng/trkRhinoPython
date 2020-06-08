@@ -82,6 +82,7 @@ def setSrfAreaValue(obj):
     area = calcArea(obj)
     rs.SetUserText(obj, "area", str(area[0]))
     rs.SetUserText(obj, "areapy", str(area[1]))
+    return area[0]
 
 def setBrepFA(obj):
     faces = getBottomFace(obj)
@@ -112,10 +113,10 @@ def boolToggle(input):
 
 """Geo Utils """
 
-def castToMeters(islength, value):
-		factor = 0.001
-		if not islength: 
-			factor = factor*factor
+def castToM(islen, value):
+    factor = 0.001
+    if not islen:
+        factor = factor*factor
     docUnits = rs.UnitSystem()
     if docUnits == 2:
         return value * factor
@@ -124,7 +125,7 @@ def castToMeters(islength, value):
 
 def calcArea(srf):
     area = rs.SurfaceArea(srf)[0]
-    totalArea = round(castToMeters(False, area), 2)
+    totalArea = round(castToM(False, area), 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
     # txt = rs.ClipboardText(totalArea)
@@ -133,9 +134,11 @@ def calcAreas(srfs):
     areas = []
     for srf in srfs:
         areas.append(rs.SurfaceArea(srf)[0])
-    totalArea = round(castToMeters(False, sum(areas)), 2)
-    totalAreaPy = round(totalArea/3.3058, 2)
-    return [totalArea, totalAreaPy]
+    # totalArea = round(castToM(False, sum(areas)), 2)
+    # totalAreaPy = round(totalArea/3.3058, 2)
+    totalArea = castToM(False, sum(areas))
+    totalAreaPy = totalArea/3.3058
+    return [round(totalArea, 2), round(totalAreaPy, 2)]
     # txt = rs.ClipboardText(totalArea)
 
 def rebuildSrfCrv(obj):

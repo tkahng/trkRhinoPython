@@ -22,7 +22,6 @@ def wallBaseSrf(crv, width):
         return rs.ExplodePolysurfaces(section, delete_input=True)
     return section
 
-
 def makeBrep(srf):
     point1 = rs.EvaluateSurface(srf, 0, 0)
     vec = rs.CreateVector(0, 0, height)
