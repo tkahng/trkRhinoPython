@@ -112,16 +112,19 @@ def boolToggle(input):
 
 """Geo Utils """
 
-def castToMeters(value):
+def castToMeters(islength, value):
+		factor = 0.001
+		if not islength: 
+			factor = factor*factor
     docUnits = rs.UnitSystem()
     if docUnits == 2:
-        return value * 0.000001
+        return value * factor
     else:
         return value
 
 def calcArea(srf):
     area = rs.SurfaceArea(srf)[0]
-    totalArea = round(castToMeters(area), 2)
+    totalArea = round(castToMeters(False, area), 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
     # txt = rs.ClipboardText(totalArea)
@@ -130,7 +133,7 @@ def calcAreas(srfs):
     areas = []
     for srf in srfs:
         areas.append(rs.SurfaceArea(srf)[0])
-    totalArea = round(castToMeters(sum(areas)), 2)
+    totalArea = round(castToMeters(False, sum(areas)), 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
     # txt = rs.ClipboardText(totalArea)
