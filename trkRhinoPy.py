@@ -123,6 +123,14 @@ def castToM(islen, value):
     else:
         return value
 
+# def castMToUnit(value):
+#     factor = 0.001
+#     docUnits = rs.UnitSystem()
+#     if docUnits == 2:
+#         return value * factor
+#     else:
+#         return value
+
 def calcArea(srf):
     area = rs.SurfaceArea(srf)[0]
     totalArea = round(castToM(False, area), 2)
