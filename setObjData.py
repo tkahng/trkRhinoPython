@@ -8,9 +8,10 @@ rs.EnableRedraw(False)
 keys = 'usage func type'
 
 def Func(x):
-    # trp.valuesFromLayer(x)
-    # trp.setValueByLayer(x,keys)
+    trp.valuesFromLayer(x)
+    trp.setValueByLayer(x,keys)
     trp.setObjAreaValue(x)
+    trp.setBrepHeight(x)
     
 
 def setClass(obj):
@@ -24,7 +25,7 @@ def setClass(obj):
 
 def applyFunc(objs):
     map(Func, objs)
-    # map(setClass, objs)
+    map(setClass, objs)
 
 if objs:
     applyFunc(objs)
