@@ -11,13 +11,26 @@ vec = startPt - origin
 
 planplanes = []
 
+def createPtDict(pt):
+    ptdict = []
+    ptkeys = ["X","Y","Z"]
+    ptVals = [pt.X, pt.Y, pt.Z]
+    # for key in ptkeys:
+    #     ptd = dict(key, )
+    return dict(zip(ptkeys, ptVals))
+
 for i in range(count):
     lvlname = i+1
     newvec = vec * i
     newpt = startPt + newvec
     rs.AddPoint(newpt)
-    ptdict = dict({"point":{"Z":newpt.Z, "Y":newpt.Y, "X":newpt.X}, "level":lvlname})
-    planplanes.append(ptdict)
+    ptdict = createPtDict(newpt)
+    planekeys = ["level", "point"]
+    planevals = [i, ptdict]
+    lvldict = dict(zip(planekeys, planevals))
+    # lvldict = dict([("level", i), ("point", ptdict)])
+    # leveldict = dict(level=lvlname, point = ptdict)
+    planplanes.append(lvldict)
     # print ptdict
     # newplane = rs.PlaneFromNormal(newpt, (0,0,1))
     # vecs.append(newplane)
