@@ -35,7 +35,8 @@ def getSourceKeys(source):
     if rs.IsUserText(source) == 0:
         print 'no keys'
         return
-    return [ x for x in rs.GetUserText(source) if "BakeName" not in x ]
+    # return [ x for x in rs.GetUserText(source) if "BakeName" not in x ]
+    return [ x for x in rs.GetUserText(source)]
 
 def sourceKeyValue(source):
     keys = getSourceKeys(source)
@@ -278,7 +279,8 @@ def setLevelforDatum(x, idx, grade):
 """Dictionary Json"""
 
 def createObjDict(obj):
-    objkeys = [ x for x in rs.GetUserText(obj) if "BakeName" not in x ]
+    # objkeys = [ x for x in rs.GetUserText(obj) if "BakeName" not in x ]
+    objkeys = [ x for x in rs.GetUserText(obj)]
     objvals = map(lambda x: rs.GetUserText(obj, x), objkeys)
     return dict(zip(objkeys, objvals))
 
