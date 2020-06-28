@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import rhinoscriptsyntax as rs 
+import scriptcontext as sc
+import json
+import ast
 
 def intFlipBool(tf):
     return abs(tf-1)
@@ -186,6 +189,15 @@ def getSrfNormal(srf):
     param = rs.SurfaceClosestPoint(srf, point)
     return rs.SurfaceNormal(srf, param)
 
+def getSrfFrame(srf):
+    domainU = rs.SurfaceDomain(srf, 0)
+    domainV = rs.SurfaceDomain(srf, 1)
+    u = domainU[1]/2.0
+    v = domainV[1]/2.0
+    point = rs.EvaluateSurface(srf, u, v)
+    param = rs.SurfaceClosestPoint(srf, point)
+    return rs.SurfaceFrame(srf, param)
+
 def offsetInside(crv, dist):
     rs.SimplifyCurve(crv)
     centroid = rs.CurveAreaCentroid(crv)
@@ -275,6 +287,29 @@ def setLevelforDatum(x, idx, grade):
     rs.SetUserText(x[0], "grade", grade) 
     rs.SetUserText(x[0], "elevation", str(x[1]))
     setBrepHeight(x[0])
+
+def cPlaneLvl():
+    userstr = rs.GetDocumentUserText("levels")
+    objdict = ast.literal_eval(userstr)
+    for i in objdict:
+        lvlname = i["level"]
+        elevation = float(i["elevation"])
+        newplane = rs.CreatePlane((0,0,elevation))
+        rs.ViewCPlane(None, newplane)
+        rs.AddNamedCPlane(lvlname)
+
+def createSectionBox(obj):
+    box = rs.BoundingBox(obj)
+    bb = rs.AddBox(box)
+    faces = rs.ExplodePolysurfaces(bb)
+    faces = [rs.FlipSurface(x) for x in faces]
+    planes = [getSrfFrame(x) for x in faces]
+    clips = [rs.AddClippingPlane(x, 1000, 1000) for x in planes]
+    group = rs.AddGroup()
+    rs.AddObjectsToGroup(clips, group)
+    return clips
+
+
 
 """Dictionary Json"""
 
