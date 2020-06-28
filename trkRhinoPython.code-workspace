@@ -7,13 +7,16 @@
 			"path": "..\\rhinopython"
 		},
 		{
-			"path": "..\\rhinopythonscripts"
+			"path": "..\\rhino-developer-samples\\grasshopper"
+		},
+		{
+			"path": "..\\rhino-developer-samples\\rhinopython"
+		},
+		{
+			"path": "..\\trkPython"
 		}
 	],
 	"settings": {
-		"python.pythonPath": "C:\\Miniconda3\\envs\\clr\\python.exe",
-		// "python.linting.enabled": false,
-		// // python autocomplete extra path
 		"python.autoComplete.extraPaths": [
 			"..\\ironpython-stubs\\release\\stubs.min", 
 			"C:\\Program Files\\Rhino 6\\Plug-ins\\IronPython\\Lib",

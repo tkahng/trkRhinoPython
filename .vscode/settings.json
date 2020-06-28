@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\Tchunoo\\Miniconda3\\envs\\clr\\python.exe",
     "python.linting.enabled": false,
     // python autocomplete extra path
     "python.autoComplete.extraPaths": [
@@ -15,6 +14,7 @@
 
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.jediEnabled": false,
+    "python.languageServer": "Microsoft",
     // // Enable/Disable rhinopython
     // "RhinoPython.Enabled": true,
     // // True if you want to reset script engine every time you send code, otherwise False
