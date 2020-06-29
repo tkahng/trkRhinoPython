@@ -356,3 +356,20 @@ def resetBlockScale(block):
         pass
     rs.DeleteObjects(block)
     return newBlock
+
+def blkFace(obj):
+
+    cameraPos = rs.ViewCamera()
+
+    cameraPos.Z = 0
+
+    xform = rs.BlockInstanceXform(obj)
+    plane = rs.PlaneTransform(rs.WorldXYPlane(), xform)
+
+    viewdir = rs.VectorUnitize(cameraPos - plane.Origin)
+
+    angle = rs.VectorAngle(viewdir, plane.YAxis)
+
+    newXform = rs.XformRotation3(plane.YAxis, viewdir, plane.Origin)
+
+    rs.TransformObject(obj, newXform)
