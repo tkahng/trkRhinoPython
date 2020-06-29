@@ -4,19 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "..\\rhinopython"
-		},
-		{
-			"path": "..\\rhino-developer-samples\\grasshopper"
-		},
-		{
 			"path": "..\\rhino-developer-samples\\rhinopython"
 		},
 		{
 			"path": "..\\trkPython"
-		},
-		{
-			"path": "..\\rhinopython_furniture"
 		}
 	],
 	"settings": {
