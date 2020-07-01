@@ -38,8 +38,8 @@ def getSourceKeys(source):
     if rs.IsUserText(source) == 0:
         print 'no keys'
         return
-    # return [ x for x in rs.GetUserText(source) if "BakeName" not in x ]
-    return [ x for x in rs.GetUserText(source)]
+    return [ x for x in rs.GetUserText(source) if "BakeName" not in x ]
+    # return [ x for x in rs.GetUserText(source)]
 
 def sourceKeyValue(source):
     keys = getSourceKeys(source)
