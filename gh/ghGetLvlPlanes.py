@@ -1,13 +1,14 @@
 import rhinoscriptsyntax as rs
-# import scriptcontext as sc
+import scriptcontext as sc
 #import Rhino as rc
 import ast
 #import json
 
 #sc.doc = rc.RhinoDoc.ActiveDoc
 
-objdict = ast.literal_eval(rs.GetDocumentUserText("levels"))
-# sticky = sc.sticky["levels"]
+src = sc.sticky["levels"] if sticky else rs.GetDocumentUserText("levels")
+
+objdict = ast.literal_eval(src)
 
 keys = ['height', 'grade', 'elevation', 'level']
 
