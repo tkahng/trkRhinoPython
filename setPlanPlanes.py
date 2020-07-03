@@ -2,6 +2,7 @@ import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 import scriptcontext as sc
 import json
+# import collections
 
 count = rs.GetInteger("number of planes")
 origin = rs.GetPoint("pick origin")
@@ -15,6 +16,7 @@ def createPtDict(pt):
     ptdict = []
     ptkeys = ["X","Y","Z"]
     ptVals = [pt.X, pt.Y, pt.Z]
+    # OrderedDict
     # for key in ptkeys:
     #     ptd = dict(key, )
     return dict(zip(ptkeys, ptVals))

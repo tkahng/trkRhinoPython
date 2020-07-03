@@ -1,10 +1,10 @@
 import rhinoscriptsyntax as rs
 import scriptcontext as sc
-#import Rhino as rc
+import Rhino as rc
 import ast
 #import json
 
-#sc.doc = rc.RhinoDoc.ActiveDoc
+sc.doc = rc.RhinoDoc.ActiveDoc
 
 src = sc.sticky["levels"] if sticky else rs.GetDocumentUserText("levels")
 
