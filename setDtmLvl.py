@@ -19,7 +19,7 @@ def process(objs, grade, func):
     levels = [trp.createObjDict(x[0][0]) for x in groups]
     sc.sticky["levels"] = json.dumps(levels)
     rs.SetDocumentUserText("levels", json.dumps(levels))
-    trp.cPlaneLvl()
+    # trp.cPlaneLvl()
 
 if __name__ == '__main__':
     process(objs, grade, trp.setLevelforDatum)  
