@@ -237,11 +237,15 @@ def srfPtZPair(srf):
     return [srf, el]
 
 def crvPtZpair(crv):
-    domain = rs.CurveDomain(crv)
-    t = domain[1]/2.0
-    point = rs.EvaluateCurve(crv, t)
-    el = round(point.Z, 3)
+    el = round(brepGetZ(crv)[0], 3)
     return [crv, el]
+
+# def crvPtZpair(crv):
+#     domain = rs.CurveDomain(crv)
+#     t = domain[1]/2.0
+#     point = rs.EvaluateCurve(crv, t)
+#     el = round(point.Z, 3)
+#     return [crv, el]
 
 def setObjZPair(obj):
     if rs.IsCurve(obj):
