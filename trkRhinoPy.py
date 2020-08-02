@@ -66,8 +66,11 @@ def valuesFromLayer(obj):
     if "::" in layer:
         layer = layer.split("::")
         layer = layer[-1]
-    values = layer.split()
-    return values
+    if " " in layer:
+        values = layer.split(" ")
+        return values
+    else:
+        return [layer]
 
 def hatchFromSrf(srf):
     border = rs.DuplicateSurfaceBorder(srf, type=0)
@@ -78,7 +81,7 @@ def hatchFromSrf(srf):
 def setValueByLayer(obj, keys):
     keys = keys.split()
     values = valuesFromLayer(obj)
-    values[1], values[-1] = values[-1], values[1]
+#    values[1], values[-1] = values[-1], values[1]
     kv = zip(keys, values)
     map(lambda x: rs.SetUserText(obj, x[0], x[1]), kv)
 
