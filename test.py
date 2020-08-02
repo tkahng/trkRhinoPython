@@ -6,18 +6,18 @@ from rhinopythonscripts import Smart
 import Rhino
 
 # objs = rs.GetObjects()
-targIds = rs.GetObjects("Select the first object to replace")
+targId = rs.GetObject("Select the first object to replace")
 #if not targId:return
 
-obj = [sc.doc.Objects.Find(x) for x in targIds]
+rhobj = sc.doc.Objects.Find(targId)
 #geo = obj.Geometry
 
 
-#rhobjlist = getSelected()
+rhobjlist = getSelected()
 
-sf = Smart.RhinoObjectsToSmartFeatures(obj)
+sf = Smart.RhinoObjectsToSmartFeatures(rhobjlist)
 
-print [x.attributes for x in sf]
+print sf[0].attributes
 
 # import Rhino.Geometry
 # import Grasshopper as gh
