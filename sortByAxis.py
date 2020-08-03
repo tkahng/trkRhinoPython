@@ -16,11 +16,11 @@ def objBBPtPair(obj):
     return obj, mid, minZ, maxZ
     # rs.addpoint
 
-def sortByAxis(objs, fn=lambda x:x[1].X, r=False):
+def sortByAxis(objs, fn=lambda x:x[1].X, r=False, key='level', start=1):
     pairs = map(objBBPtPair, objs)
     sortedpairs = sorted(pairs, key=fn, reverse=r)
-    for idx, pairs in enumerate(sortedpairs, start=1):
-        rs.SetUserText(pairs[0], "level", str(idx))
+    for idx, pairs in enumerate(sortedpairs, start=start):
+        rs.SetUserText(pairs[0], key, str(idx))
         # rs.SetUserText(pairs[0], "level", str(idx))
         
 

@@ -301,6 +301,7 @@ def setLevelforDatum(x, idx, grade):
     rs.SetUserText(x[0], "level", str(idx))
     rs.SetUserText(x[0], "grade", grade) 
     rs.SetUserText(x[0], "elevation", str(x[1]))
+    # rs.SetUserText(x[0], 'pt', )
     setBrepHeight(x[0])
 
 def cPlaneLvl():

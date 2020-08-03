@@ -20,9 +20,14 @@ def process(objs, grade, func):
 
     lvlk = [x['level'] for x in levels]
     lvldict = dict(zip(lvlk, levels))
-
+    lvlpt = [rs.CreatePoint((0,0,float(x['elevation']))) for x in levels]
+    lvlptdict = dict(zip(lvlk, lvlpt))
+    # pts = [" ".join(map(str,[0,0,float(x['elevation'])]))]
+    # lvlptdict
+    sc.sticky['lvlptdict'] = lvlptdict
     sc.sticky["lvldict"] = lvldict
     sc.sticky["levels"] = json.dumps(levels)
+    rs.SetDocumentUserText("lvldict", json.dumps(lvldict))
     rs.SetDocumentUserText("levels", json.dumps(levels))
     # trp.cPlaneLvl()
 
