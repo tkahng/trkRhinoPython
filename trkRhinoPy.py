@@ -213,6 +213,14 @@ def brepGetZ(obj):
     height = maxZ - minZ
     return minZ, maxZ, round(height, 3)
 
+def objBBPts(obj):
+    box = rs.BoundingBox(obj)
+    minZ = box[0]
+    maxZ = box[-2]
+    mid = (box[0] + box[-2])/2
+    return minZ, maxZ, mid
+    # rs.addpoint
+
 def moveSrftoZ(srf):
     domainU = rs.SurfaceDomain(srf, 0)
     domainV = rs.SurfaceDomain(srf, 1)
