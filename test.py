@@ -14,17 +14,22 @@ src = sc.sticky["levels"]
 
 lvldict = ast.literal_eval(src)
 
+lvlk = [x['level'] for x in lvldict]
+
+newdict = dict(zip(lvlk, lvldict))
+
+newdict2 = dict(map(lambda x: zip(x['level'], x), lvldict))
 #lvlel = map(lambda x: zip(x['level'], x['elevation']), lvldict)
 
-lvlk = [x['level'] for x in lvldict]
-lvlk = [x['lelevation'] for x in lvldict]
+#lvlk = [x['level'] for x in lvldict]
+#lvlk = [x['lelevation'] for x in lvldict]
 
-print lvlk, lvll
-
-
-
-#print lvlel
-print type(lvlel)
+#print lvlk, lvll
+print newdict2
+print newdict
+print lvlk
+print lvldict
+#print type(lvlel)
 
 ## objs = rs.GetObjects()
 #targId = rs.GetObject("Select the first object to replace")

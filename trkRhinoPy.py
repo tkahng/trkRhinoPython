@@ -211,7 +211,7 @@ def brepGetZ(obj):
     minZ = box[0].Z
     maxZ = box[-1].Z
     height = maxZ - minZ
-    return minZ, maxZ, round(height, 2)
+    return minZ, maxZ, round(height, 3)
 
 def moveSrftoZ(srf):
     domainU = rs.SurfaceDomain(srf, 0)

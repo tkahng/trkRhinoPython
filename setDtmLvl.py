@@ -17,7 +17,11 @@ def process(objs, grade, func):
     """setting lvldbdict as ordered for some reason
     """
     levels = [trp.createObjDict(x[0][0]) for x in groups]
-    sc.sticky["lvldict"] = levels
+
+    lvlk = [x['level'] for x in levels]
+    lvldict = dict(zip(lvlk, levels))
+
+    sc.sticky["lvldict"] = lvldict
     sc.sticky["levels"] = json.dumps(levels)
     rs.SetDocumentUserText("levels", json.dumps(levels))
     # trp.cPlaneLvl()
