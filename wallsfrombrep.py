@@ -26,7 +26,10 @@ def func(objid):
         
         facecrvs.append(crvs[0])
     plnrsrf = rg.Brep.CreatePlanarBreps(facecrvs, tol)
-    # solids = 
+    rails = [rg.LineCurve(srf.Faces[0].PointAt(0,0), srf.Faces[0].PointAt(0,0) + rg.Point3d(0,0,4)) for srf in plnrsrf]
+    solids = [rg.BrepFace.CreateExtrusion(srf.Faces[0], rg.LineCurve(srf.Faces[0].PointAt(0,0), srf.Faces[0].PointAt(0,0) + rg.Point3d(0,0,4)), True) for srf in plnrsrf]
+    solidsrc = [sc.doc.Objects.AddBrep(c) for c in solids]
+    railsrc = [sc.doc.Objects.AddCurve(c) for c in rails]
     rc = [sc.doc.Objects.AddBrep(c) for c in plnrsrf]
     return rc
 
