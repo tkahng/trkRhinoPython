@@ -12,7 +12,13 @@ import rhinoscriptsyntax as rs
 import scriptcontext as sc
 import Rhino
 
+# import Rhino.Geometry as rg
+# import Rhino.Geometry
+# from Rhino.Geometry import Brep
+
 sc.doc = Rhino.RhinoDoc.ActiveDoc
+
+# rg.Curve.Offset()
 
 print x
 
