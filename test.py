@@ -30,6 +30,74 @@ def groupByBB(objs):
 
 groupByBB(objs)
 
+
+def DuplicateEdgeCurves(object_id, select=False):
+    """Duplicates the edge curves of a surface or polysurface. For more
+    information, see the Rhino help file for information on the DupEdge
+    command.
+    Parameters:
+      object_id (guid): The identifier of the surface or polysurface object.
+      select (bool, optional):  Select the duplicated edge curves. The default is not
+      to select (False).
+    Returns:
+      list(guid, ..): identifying the newly created curve objects if successful.
+      None: if not successful, or on error.
+    Example:
+      import rhinoscriptsyntax as rs
+      obj = rs.GetObject("Select surface or polysurface", rs.filter.surface | rs.filter.polysurface)
+      if obj:
+          rs.DuplicateEdgeCurves( obj, True )
+          rs.DeleteObject( obj )
+    See Also:
+      IsPolysurface
+      IsSurface
+    """
+    brep = rhutil.coercebrep(object_id, True)
+    out_curves = brep.DuplicateEdgeCurves()
+    curves = []
+    for curve in out_curves:
+        if curve.IsValid:
+            rc = scriptcontext.doc.Objects.AddCurve(curve)
+            curve.Dispose()
+            if rc==System.Guid.Empty: return None
+            curves.append(rc)
+            if select: 
+                rhobject = rhutil.coercerhinoobject(rc)
+                rhobject.Select(True)
+    if curves: scriptcontext.doc.Views.Redraw()
+    return curves
+
+
+def DuplicateSurfaceBorder(surface_id, type=0):
+    """Create curves that duplicate a surface or polysurface border
+    Parameters:
+      surface_id (guid): identifier of a surface
+      type (number, optional): the border curves to return
+         0=both exterior and interior,
+         1=exterior
+         2=interior
+    Returns:
+      list(guid, ...): list of curve ids on success
+      None: on error
+    Example:
+      import rhinoscriptsyntax as rs
+      surface = rs.GetObject("Select surface or polysurface", rs.filter.surface | rs.filter.polysurface)
+      if surface: rs.DuplicateSurfaceBorder( surface )
+    See Also:
+      DuplicateEdgeCurves
+      DuplicateMeshBorder
+    """
+    brep = rhutil.coercebrep(surface_id, True)
+    inner = type==0 or type==2
+    outer = type==0 or type==1
+    curves = brep.DuplicateNakedEdgeCurves(outer, inner)
+    if curves is None: return scriptcontext.errorhandler()
+    tolerance = scriptcontext.doc.ModelAbsoluteTolerance * 2.1
+    curves = Rhino.Geometry.Curve.JoinCurves(curves, tolerance)
+    if curves is None: return scriptcontext.errorhandler()
+    rc = [scriptcontext.doc.Objects.AddCurve(c) for c in curves]
+    scriptcontext.doc.Views.Redraw()
+    return rc
 #objs = rs.GetObjects('select objects', preselect=True)
 #
 #def objBBPtPair(obj):
