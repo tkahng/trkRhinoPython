@@ -6,7 +6,7 @@ import scriptcontext as sc
 
 objs = rs.GetObjects('select objects', preselect=True)
 
-groupbb = rs.ObjectsByLayer('planbb', False)
+groupbb = rs.ObjectsByLayer('datums::planbb', False)
 
 def objBBPtPair(obj):
     box = rs.BoundingBox(obj)
