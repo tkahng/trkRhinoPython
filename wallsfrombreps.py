@@ -57,9 +57,10 @@ def wallByBrep(objid, height, offout, offin):
     return solidsrc
 
 def func(obj):
+    obj = alignNormal(obj)
     width = wallthickness/2
     height = float(rs.GetUserText(obj, "height"))
-    lvl = rs.GetUserText(obj, 'level')
+    # lvl = rs.GetUserText(obj, 'level')    
     walls = wallByBrep(obj, height, width, -width)
     [trp.copySourceData(wall, obj) for wall in walls]
 
