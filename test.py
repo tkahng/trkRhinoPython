@@ -4,14 +4,70 @@ import rhinoscriptsyntax as rs
 import scriptcontext as sc
 # from rhinopythonscripts import Smart
 # import Rhino as rc
-import Rhino
-import Rhino.Geometry
+#import Rhino
+import Rhino.Geometry as rg
 # import json
 # import ast
 # from _functools import reduce
 
+ids = rs.GetObjects()
 
-tran = Rhino.Geometry.CurveOffsetCornerStyle
+def alignNormal(id):
+    obj = sc.doc.Objects.Find(id)
+    geo = obj.Geometry
+    print geo
+#    srf = rs.coercesurface(id)
+#    print srf
+    srf = geo.Faces[0]
+#    srf = face.UnderlyingSurface()
+    print srf
+    normal = srf.NormalAt(srf.Domain(0).Mid, srf.Domain(1).Mid)
+    print normal
+    print normal.Z
+    if normal.Z < 0:
+        geo.Flip()
+        sc.doc.Objects.Replace(id, geo)
+        return id
+#        return rs.FlipSurface(id, True)
+    else:
+        return id
+
+map(alignNormal, ids)
+    
+
+#def FlipSurface(surface_id, flip=None):
+#    """Returns or changes the normal direction of a surface. This feature can
+#    also be found in Rhino's Dir command
+#    Parameters:
+#      surface_id (guid): identifier of a surface object
+#      flip (bool, optional) new normal orientation, either flipped(True) or not flipped (False).
+#    Returns:
+#      vector: if flipped is not specified, the current normal orientation
+#      vector: if flipped is specified, the previous normal orientation
+#      None: on error
+#    Example:
+#      import rhinoscriptsyntax as rs
+#      surf = rs.GetObject("Select object", rs.filter.surface)
+#      if surf:
+#          flip = rs.FlipSurface(surf)
+#          if flip: rs.FlipSurface(surf, False)
+#    See Also:
+#      IsSurface
+#    """
+#    brep = rhutil.coercebrep(surface_id, True)
+#    if brep.Faces.Count>1: return scriptcontext.errorhandler()
+#    face = brep.Faces[0]
+#    old_reverse = face.OrientationIsReversed
+#    if flip!=None and brep.IsSolid==False and old_reverse!=flip:
+#        brep.Flip()
+#        surface_id = rhutil.coerceguid(surface_id)
+#        if surface_id: scriptcontext.doc.Objects.Replace(surface_id, brep)
+#        scriptcontext.doc.Views.Redraw()
+#    return old_reverse
+
+
+
+#tran = Rhino.Geometry.CurveOffsetCornerStyle
 
 # objs = rs.GetObjects('select objects', preselect=True)
 
