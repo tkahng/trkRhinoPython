@@ -72,6 +72,15 @@ def valuesFromLayer(obj):
     else:
         return [layer]
 
+def swapParentLayer(obj, newparent):
+    layer = rs.ObjectLayer(obj)
+    if "::" in layer:
+        splitlayer = layer.split("::")
+        currentParent = splitlayer[0]
+        newlayer = layer.replace(currentParent, newparent)
+        rs.ObjectLayer(obj, newlayer)
+
+
 def hatchFromSrf(srf):
     border = rs.DuplicateSurfaceBorder(srf, type=0)
     hatch = rs.AddHatches(border, "SOLID")

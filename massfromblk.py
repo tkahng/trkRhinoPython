@@ -9,7 +9,7 @@ import Rhino
 
 levels = sc.sticky["lvldict"]
 
-blkid = rs.GetObject('select objects', rs.filter.instance, preselect=True)
+blkids = rs.GetObjects('select objects', rs.filter.instance, preselect=True)
 
 rs.EnableRedraw(False)
 
@@ -21,37 +21,44 @@ def swapParentLayer(obj):
         newlayer = layer.replace(currentParent, 'output mass 2')
         rs.ObjectLayer(obj, newlayer)
 
+# def func(x):
+#     rs.SetUserText(x, 'level')
+
 def blkObjs(blkid):
     blockName = rs.BlockInstanceName(blkid)
-    objref = rs.coercerhinoobject(blkid)
-    idef = objref.InstanceDefinition
-    idefIndex = idef.Index
+    # objref = rs.coercerhinoobject(blkid)
+    # idef = objref.InstanceDefinition
+    # idefIndex = idef.Index
     
     lvl = levels[rs.GetUserText(blkid, 'level')]
-    height = float(lvl['height'])
+    height = lvl['height']
     xform = rs.BlockInstanceXform(blkid)
-    objects = [x for x in rs.BlockObjects(blockName) if rs.IsSurface(x)]
+    objects = [x for x in rs.BlockObjects(blockName) if rs.IsPolysurfaceClosed(x)]
 
-    masses = map(lambda x: massFromSrf(x, height), objects)
-    # masses = map(lambda x: rs.SetUserText(x, 'blkname', blockName), masses)
+    objects = map(lambda x: rs.SetUserText(x, 'level', lvl), objects)
+    # map(lambda x: rs.SetUserText(x, 'height', lvl))
+
+    blockInstanceObjects = rs.TransformObjects(objects, xform, True)
+
+    # masses = map(lambda x: massFromSrf(x, height), objects)
     # newblk = rs.AddBlock(masses, (0,0,0), name=name, delete_input=True)
 
-    objects.extend(masses)
+    # objects.extend(masses)
 
-    newGeometry = []
-    newAttributes = []
-    for object in objects:
-        newGeometry.append(rs.coercegeometry(object))
-        ref = Rhino.DocObjects.ObjRef(object)
-        attr = ref.Object().Attributes
-        attr.SetUserString('blkname', blockName)
-        newAttributes.append(attr)
+    # newGeometry = []
+    # newAttributes = []
+    # for object in objects:
+    #     newGeometry.append(rs.coercegeometry(object))
+    #     ref = Rhino.DocObjects.ObjRef(object)
+    #     attr = ref.Object().Attributes
+    #     attr.SetUserString('blkname', blockName)
+    #     newAttributes.append(attr)
     
-    InstanceDefinitionTable = sc.doc.ActiveDoc.InstanceDefinitions
-    InstanceDefinitionTable.ModifyGeometry(idefIndex, newGeometry, newAttributes)
-    # rs.TransformObjects(masses, xform)
-    rs.DeleteObjects(masses)
-    # return objs
+    # InstanceDefinitionTable = sc.doc.ActiveDoc.InstanceDefinitions
+    # InstanceDefinitionTable.ModifyGeometry(idefIndex, newGeometry, newAttributes)
+    # # rs.TransformObjects(masses, xform)
+    # rs.DeleteObjects(masses)
+    # # return objs
 
 def massFromSrf(obj, height):
     # lvl = levels[rs.GetUserText(obj, 'level')]
@@ -62,7 +69,6 @@ def massFromSrf(obj, height):
     mass = rs.ExtrudeSurface(obj, curve)
     
     trp.copySourceLayer(mass, obj)
-    rs.SetUserText(mass, str(height))
     # trp.copySourceData(mass, obj)
     swapParentLayer(mass)
     rs.DeleteObject(curve)
@@ -70,8 +76,8 @@ def massFromSrf(obj, height):
 
 # rs.UnselectAllObjects()
 
-blkObjs(blkid)
-
+# blkObjs(blkid)
+map(blkObjs, blkids)
 # masses = map(massFromSrf, objs)
 
 

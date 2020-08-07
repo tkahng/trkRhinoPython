@@ -16,21 +16,19 @@ import trkRhinoPy as trp
 
 blockIds = rs.GetObjects("Pick Block", rs.filter.instance)
 
-def checkblkplane(blkid):
-    xform = rs.BlockInstanceXform(blkid)
-    plane = rs.PlaneTransform(rs.WorldXYPlane(), xform)
-    normal = plane.ZAxis.Z
-    print normal
-    if normal < 0:
-        newxform = rs.XformMirror(plane.Origin, plane.Normal)
-        return rs.TransformObject(blkid, newxform)
-    else:
-        return
+def blkObjs(blkid):
+    blockName = rs.BlockInstanceName(blkid)
+    objref = rs.coercerhinoobject(blkid)
+    idef = objref.InstanceDefinition
+    idefIndex = idef.Index
+    print blockName, objref, idef, idefIndex
 
+
+map(blkObjs, blockIds)
 #def mirrorblk(blkid):
 #    
 
-map(checkblkplane, blockIds)
+#map(checkblkplane, blockIds)
 
 # ids = rs.GetObjects()
 

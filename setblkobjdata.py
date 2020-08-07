@@ -3,6 +3,7 @@ import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 import scriptcontext as sc
 import Rhino
+# import Rhino.DocObjects
 # import Rhino as rc
 
 # sc.doc = rc.RhinoDoc.ActiveDoc
@@ -13,13 +14,8 @@ blkid = rs.GetObject('select objects', rs.filter.instance, preselect=True)
 
 rs.EnableRedraw(False)
 
-def swapParentLayer(obj):
-    layer = rs.ObjectLayer(obj)
-    if "::" in layer:
-        splitlayer = layer.split("::")
-        currentParent = splitlayer[0]
-        newlayer = layer.replace(currentParent, 'output mass 2')
-        rs.ObjectLayer(obj, newlayer)
+# def setobjblkname(obj, blkname):
+
 
 def blkObjs(blkid):
     blockName = rs.BlockInstanceName(blkid)
@@ -30,13 +26,11 @@ def blkObjs(blkid):
     lvl = levels[rs.GetUserText(blkid, 'level')]
     height = float(lvl['height'])
     xform = rs.BlockInstanceXform(blkid)
-    objects = [x for x in rs.BlockObjects(blockName) if rs.IsSurface(x)]
-
-    masses = map(lambda x: massFromSrf(x, height), objects)
-    # masses = map(lambda x: rs.SetUserText(x, 'blkname', blockName), masses)
+    objects = rs.BlockObjects(blockName)
+    # masses = map(lambda x: massFromSrf(x, height), objects)
     # newblk = rs.AddBlock(masses, (0,0,0), name=name, delete_input=True)
 
-    objects.extend(masses)
+    # objects.extend(masses)
 
     newGeometry = []
     newAttributes = []
@@ -62,7 +56,6 @@ def massFromSrf(obj, height):
     mass = rs.ExtrudeSurface(obj, curve)
     
     trp.copySourceLayer(mass, obj)
-    rs.SetUserText(mass, str(height))
     # trp.copySourceData(mass, obj)
     swapParentLayer(mass)
     rs.DeleteObject(curve)
