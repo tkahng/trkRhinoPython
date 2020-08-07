@@ -1,38 +1,60 @@
-import trkRhinoPy as trp
-import rhinoscriptsyntax as rs
-# from rhinopythonscripts.GeomTools import getSelected
-import scriptcontext as sc
+# import trkRhinoPy as trp
+# import rhinoscriptsyntax as rs
+# # from rhinopythonscripts.GeomTools import getSelected
+# import scriptcontext as sc
 # from rhinopythonscripts import Smart
 # import Rhino as rc
 #import Rhino
-import Rhino.Geometry as rg
-# import json
-# import ast
-# from _functools import reduce
+# import Rhino.Geometry as rg
+# # import json
+# # import ast
+# # from _functools import reduce
 
-ids = rs.GetObjects()
 
-def alignNormal(id):
-    obj = sc.doc.Objects.Find(id)
-    geo = obj.Geometry
-    print geo
-#    srf = rs.coercesurface(id)
-#    print srf
-    srf = geo.Faces[0]
-#    srf = face.UnderlyingSurface()
-    print srf
-    normal = srf.NormalAt(srf.Domain(0).Mid, srf.Domain(1).Mid)
+import rhinoscriptsyntax as rs
+import trkRhinoPy as trp
+
+blockIds = rs.GetObjects("Pick Block", rs.filter.instance)
+
+def checkblkplane(blkid):
+    xform = rs.BlockInstanceXform(blkid)
+    plane = rs.PlaneTransform(rs.WorldXYPlane(), xform)
+    normal = plane.ZAxis.Z
     print normal
-    print normal.Z
-    if normal.Z < 0:
-        geo.Flip()
-        sc.doc.Objects.Replace(id, geo)
-        return id
-#        return rs.FlipSurface(id, True)
+    if normal < 0:
+        newxform = rs.XformMirror(plane.Origin, plane.Normal)
+        return rs.TransformObject(blkid, newxform)
     else:
-        return id
+        return
 
-map(alignNormal, ids)
+#def mirrorblk(blkid):
+#    
+
+map(checkblkplane, blockIds)
+
+# ids = rs.GetObjects()
+
+# def alignNormal(id):
+#     obj = sc.doc.Objects.Find(id)
+#     geo = obj.Geometry
+#     print geo
+# #    srf = rs.coercesurface(id)
+# #    print srf
+#     srf = geo.Faces[0]
+# #    srf = face.UnderlyingSurface()
+#     print srf
+#     normal = srf.NormalAt(srf.Domain(0).Mid, srf.Domain(1).Mid)
+#     print normal
+#     print normal.Z
+#     if normal.Z < 0:
+#         geo.Flip()
+#         sc.doc.Objects.Replace(id, geo)
+#         return id
+# #        return rs.FlipSurface(id, True)
+#     else:
+#         return id
+
+# map(alignNormal, ids)
     
 
 #def FlipSurface(surface_id, flip=None):
