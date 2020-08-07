@@ -26,7 +26,9 @@ def sortByAxis(objs, fn=lambda x:x[1].X, r=False, key='level', start=1):
         kv.append((str(idx), pairs[1]))
         kv2.append((str(idx), (pairs[1].X, pairs[1].Y, pairs[1].Z)))
     planptdict = dict(kv)
-    rs.SetDocumentUserText("planpts", json.dumps(dict(kv2)))
+    planpts = dict(kv2)
+    rs.SetDocumentUserText("planpts", json.dumps(planpts))
+    sc.sticky['planpts'] = json.dumps(planpts)
     sc.sticky['planptdict'] = planptdict
 
 sortByAxis(objs)
