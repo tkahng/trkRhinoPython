@@ -268,15 +268,28 @@ def crvPtZpair(crv):
 #     return [crv, el]
 
 def setObjZPair(obj):
-    if rs.IsCurve(obj):
+
+    if rs.IsBlockInstance(obj):
+        # pt = rs.CreatePoint(obj)
+        return [obj, round(objBBPts(obj)[0].Z, 3)]
+
+    elif rs.IsCurve(obj):
         return crvPtZpair(obj)
+
     elif rs.IsPolysurfaceClosed(obj):
         return brepPtZPair(obj)
+
     elif rs.IsSurface(obj):
         return srfPtZPair(obj)
+
     elif rs.IsPoint(obj):
         pt = rs.CreatePoint(obj)
         return [obj, round(pt.Z, 3)]
+
+    # elif rs.IsBlockInstance(obj):
+    #     # pt = rs.CreatePoint(obj)
+    #     return [obj, round(objBBPts(obj)[0].Z, 3)]
+
     else:
         pass
 

@@ -11,6 +11,8 @@ trans=rg.CurveOffsetCornerStyle.Sharp
 objs = rs.GetObjects('select polysrfs', rs.filter.polysurface, preselect=True)
 wallthickness = rs.GetReal('wall thickness', number=200)
 
+levels = sc.sticky["lvldict"]
+
 def alignNormal(id):
     obj = sc.doc.Objects.Find(id)
     geo = obj.Geometry
@@ -59,7 +61,9 @@ def wallByBrep(objid, height, offout, offin):
 def func(obj):
     obj = alignNormal(obj)
     width = wallthickness/2
-    height = float(rs.GetUserText(obj, "height"))
+    lvl = levels[rs.GetUserText(obj, 'level')]
+    height = float(lvl['height'])
+    # height = float(rs.GetUserText(obj, "height"))
     # lvl = rs.GetUserText(obj, 'level')    
     walls = wallByBrep(obj, height, width, -width)
     [trp.copySourceData(wall, obj) for wall in walls]

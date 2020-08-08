@@ -1,14 +1,10 @@
 import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 
-rs.EnableRedraw(False)
+# rs.EnableRedraw(False)
 
 def process():
-    objs = rs.GetObjects('select objs', \
-        rs.filter.surface|\
-            rs.filter.curve|\
-                rs.filter.point|\
-                    rs.filter.polysurface, preselect=True)
+    objs = rs.GetObjects('select objs', preselect=True)
     grade = rs.GetString("toggle grade")
     rs.EnableRedraw(False)
     isUG = trp.boolToggle(grade)

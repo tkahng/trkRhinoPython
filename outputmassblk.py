@@ -13,13 +13,15 @@ blkid = rs.GetObject('select objects', rs.filter.instance, preselect=True)
 
 rs.EnableRedraw(False)
 
-def swapParentLayer(obj):
-    layer = rs.ObjectLayer(obj)
-    if "::" in layer:
-        splitlayer = layer.split("::")
-        currentParent = splitlayer[0]
-        newlayer = layer.replace(currentParent, 'output mass 2')
-        rs.ObjectLayer(obj, newlayer)
+# def swapParentLayer(obj):
+#     layer = rs.ObjectLayer(obj)
+#     if "::" in layer:
+#         splitlayer = layer.split("::")
+#         currentParent = splitlayer[0]
+#         newlayer = layer.replace(currentParent, 'output mass 2')
+#         rs.ObjectLayer(obj, newlayer)
+# class 
+
 
 def blkObjs(blkid):
     blockName = rs.BlockInstanceName(blkid)

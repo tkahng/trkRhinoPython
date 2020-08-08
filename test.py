@@ -16,15 +16,31 @@ import trkRhinoPy as trp
 
 blockIds = rs.GetObjects("Pick Block", rs.filter.instance)
 
-def blkObjs(blkid):
-    blockName = rs.BlockInstanceName(blkid)
-    objref = rs.coercerhinoobject(blkid)
-    idef = objref.InstanceDefinition
-    idefIndex = idef.Index
-    print blockName, objref, idef, idefIndex
+def objBBPts(obj):
+    box = rs.BoundingBox(obj)
+    minZ = box[0]
+    maxZ = box[-2]
+    mid = (box[0] + box[-2])/2
+    return minZ, maxZ, mid
 
 
-map(blkObjs, blockIds)
+def func(obj):
+    print rs.IsSurface(obj)
+    print [obj, round(objBBPts(obj)[0].Z, 3)]
+    
+#blockName = rs.BlockInstanceName(blkid)
+
+map(func, blockIds)
+#def blkObjs(blkid):
+#    blockName = rs.BlockInstanceName(blkid)
+##    objref = rs.coercerhinoobject(blkid)
+##    idef = objref.InstanceDefinition
+##    idefIndex = idef.Index
+#    
+#    print blockName, objref, idef, idefIndex
+#
+#
+#map(blkObjs, blockIds)
 #def mirrorblk(blkid):
 #    
 
