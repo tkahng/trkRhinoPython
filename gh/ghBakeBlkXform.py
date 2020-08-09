@@ -19,10 +19,17 @@ def bakeblk(blkname, xform, bakename, idx):
     rs.SetUserText(bakedblk, bakename, idx)
 
 def reset(bakename):
-    rs.Command('SelKey '+bakename+' _Delete')
+    comm = ('SelKey', bakename, '_Delete')
+    s = ' '
+    comstr = s.join(comm)
+    print comstr
+    rs.Command(comstr)
 
 def func(xforms):
-    bakename = 'BakeName('+bakeName+')'
+    namestr = ('BakeName(', bakeName, ')')
+    sep = ''
+    bakename = sep.join(namestr)
+#    bakename = bakeName
     reset(bakename)
     for idx, xf in enumerate(xforms, start=1):
         bakeblk(name, xf, bakename, idx)
