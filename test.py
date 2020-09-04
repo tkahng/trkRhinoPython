@@ -14,6 +14,17 @@
 import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 
+import clr
+
+clr.AddReference('RhinoCommon')
+
+import Rhino
+
+Rhino.
+
+
+
+
 blockIds = rs.GetObjects("Pick Block", rs.filter.instance)
 
 def objBBPts(obj):

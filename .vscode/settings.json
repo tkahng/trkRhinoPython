@@ -1,9 +1,9 @@
 {
     "python.linting.enabled": false,
-    // python autocomplete extra path
     "python.autoComplete.extraPaths": [
-    	"..\\ironpython-stubs\\release\\stubs.min", 
-    	// "C:\\Program Files\\Rhino 6\\Plug-ins\\IronPython\\Lib",
+        "..\\ironpython-stubs\\release\\stubs.min", 
+        // "..\\pythonstubs\\stubs\\Rhino",
+        // "..\\pythonstubs\\stubs",
     	"C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\Plug-ins\\IronPython (814d908a-e25c-493d-97e9-ee3861957f49)\\settings\\lib",
     	"C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\scripts",
     	"C:\\Users\\Tchunoo\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\Plug-ins\\IronPython (814d908a-e25c-493d-97e9-ee3861957f49)\\settings\\lib",
@@ -16,6 +16,17 @@
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.jediEnabled": false,
     "python.languageServer": "Microsoft",
+    // "python.analysis.extraPaths": [
+    //     "..\\ironpython-stubs\\release\\stubs.min",
+    //     // "..\\pythonstubs\\stubs\\Rhino\\Rhino-stubs",
+    //     // "..\\pythonstubs\\stubs",
+    //     "C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\Plug-ins\\IronPython (814d908a-e25c-493d-97e9-ee3861957f49)\\settings\\lib",
+    //     "C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\scripts",
+    //     "C:\\Users\\Tchunoo\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\Plug-ins\\IronPython (814d908a-e25c-493d-97e9-ee3861957f49)\\settings\\lib",
+    //     "C:\\Users\\Tchunoo\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\scripts",
+    //     "C:\\Program Files\\Rhino 6\\Plug-ins\\IronPython\\Lib"
+    // ],
+    // "python.analysis.stubPath": "typings"
     // // Enable/Disable rhinopython
     // "RhinoPython.Enabled": true,
     // // True if you want to reset script engine every time you send code, otherwise False
