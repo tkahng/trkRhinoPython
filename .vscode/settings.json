@@ -1,8 +1,9 @@
 {
     "python.linting.enabled": false,
     "python.autoComplete.extraPaths": [
-        "..\\ironpython-stubs\\release\\stubs.min", 
+        // "..\\ironpython-stubs\\release\\stubs.min", 
         // "..\\pythonstubs\\stubs\\Rhino",
+        "..\\pythonstubs\\stubs.min",
         // "..\\pythonstubs\\stubs",
     	"C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\Plug-ins\\IronPython (814d908a-e25c-493d-97e9-ee3861957f49)\\settings\\lib",
     	"C:\\Users\\인시공현장PC\\AppData\\Roaming\\McNeel\\Rhinoceros\\6.0\\scripts",
