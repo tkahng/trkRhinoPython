@@ -1,5 +1,5 @@
 {
-    "python.linting.enabled": false,
+    "python.linting.enabled": true,
     "python.autoComplete.extraPaths": [
         "..\\ironpython-stubs\\release\\stubs.min", 
         // "..\\pythonstubs\\stubs\\Rhino",

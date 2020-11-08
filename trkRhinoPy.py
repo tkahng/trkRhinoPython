@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import Rhino
 import rhinoscriptsyntax as rs 
 import scriptcontext as sc
 import json
