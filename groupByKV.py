@@ -1,3 +1,5 @@
+"""Groups selected objects by the value of the given key."""
+
 import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 

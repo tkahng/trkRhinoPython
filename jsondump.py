@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Exports a json file with each json object containing the key/value pair of each object from selection."""
+
 import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 import json

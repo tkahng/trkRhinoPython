@@ -1,7 +1,7 @@
 {
     "python.linting.enabled": false,
     "python.autoComplete.extraPaths": [
-        // "..\\ironpython-stubs\\release\\stubs.min", 
+        "..\\ironpython-stubs\\release\\stubs.min", 
         // "..\\pythonstubs\\stubs\\Rhino",
         "..\\pythonstubs\\stubs.min",
         // "..\\pythonstubs\\stubs",
@@ -17,6 +17,7 @@
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.jediEnabled": false,
     "python.languageServer": "Microsoft",
+    "python.pythonPath": "C:\\Miniconda3\\envs\\clr\\python.exe",
     // "python.analysis.extraPaths": [
     //     "..\\ironpython-stubs\\release\\stubs.min",
     //     // "..\\pythonstubs\\stubs\\Rhino\\Rhino-stubs",

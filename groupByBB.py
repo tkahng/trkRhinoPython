@@ -1,3 +1,9 @@
+"""
+Groups objects by their containment within the set closed curves. 
+Specifically groups along the x-axis, then sequentially sets a level attribute.
+Used to sort and order objects in cad drawing context.
+"""
+
 import rhinoscriptsyntax as rs
 import trkRhinoPy as trp
 import scriptcontext as sc
