@@ -244,6 +244,37 @@ def moveSrftoZ(srf):
     # vec = [0,0,vec.Z]
     rs.MoveObjects(srf, rs.VectorReverse([0, 0, point.Z]))
 
+def BrepFootPrintRegion(breps):
+    edgecrvs = []
+
+    for brep in breps:
+        edgecrvs.extend([e.DuplicateCurve() for e in brep.Edges])
+
+    crvregion = Rhino.Geometry.Curve.CreateBooleanRegions(edgecrvs, Rhino.Geometry.Plane.WorldXY, True, Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
+    
+    outcrvs = []
+    
+    for i in range(crvregion.RegionCount):
+        outcrvs.extend(crvregion.RegionCurves(i))
+    return outcrvs
+
+def BrepFootPrintUnion(breps):
+    breploops = []
+    
+    for brep in breps:
+        breploops.extend([face.OuterLoop for face in brep.Faces])
+        
+    crvs = []
+    for loop in breploops:
+        crv = Rhino.Geometry.Curve.ProjectToPlane(loop.To3dCurve(), Rhino.Geometry.Plane.WorldXY)
+        areaprop = Rhino.Geometry.AreaMassProperties.Compute(crv)
+        if areaprop != None:
+            crvs.append(crv)
+
+    crvunion = Rhino.Geometry.Curve.CreateBooleanUnion(crvs, Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
+    
+    return crvunion
+
 """Level Tools"""
 
 def brepPtZPair(brep):

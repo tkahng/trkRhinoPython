@@ -1,42 +1,37 @@
-# import Rhino
-# import Rhino.Geometry
-# import Rhino.DocObjects
-# from Rhino import *
-# import Rhino
 import Rhino
-#from Rhino import *
-
-#Rhino.Geometry
-# import Rhino
-
-# Rhino.Geometry.
-
-
-# import Rhino
 import rhinoscriptsyntax as rs
 import scriptcontext as sc
-# import trkRhinoPy as trp
-# # import Rhino.Geometry
 
-ids = rs.GetObjects("select polysrf", rs.filter.polysurface|rs.filter.surface, preselect=True)
+from Rhino import *
 
-rs.EnableRedraw(False)
+import Rhino.Geometry
 
-breps = [rs.coercegeometry(id) for id in ids]
+Rhino.Geometry.Curve.CreateBooleanDifference()
 
-sils = []
+Rhino.Geometry.Curve.CreateBooleanRegions()
 
-for brep in breps:
-    edges = brep.Edges
-    edgecrvs = [e.DuplicateCurve() for e in edges]
-    sils.extend(edgecrvs)
-print sils
 
-silscrv = [sc.doc.Objects.AddCurve(sil) for sil in sils]
-rs.UnselectAllObjects()
-rs.SelectObjects(silscrv)
-rs.Command('_CurveBoolean AllRegions _Enter')
-rs.DeleteObjects(silscrv)
+print(rs.SdkVersion())
+print("Executable Version:", rs.ExeVersion())
+# ids = rs.GetObjects("select polysrf", rs.filter.polysurface|rs.filter.surface, preselect=True)
+
+# rs.EnableRedraw(False)
+
+# breps = [rs.coercegeometry(id) for id in ids]
+
+# sils = []
+
+# for brep in breps:
+#     edges = brep.Edges
+#     edgecrvs = [e.DuplicateCurve() for e in edges]
+#     sils.extend(edgecrvs)
+# print sils
+
+# silscrv = [sc.doc.Objects.AddCurve(sil) for sil in sils]
+# rs.UnselectAllObjects()
+# rs.SelectObjects(silscrv)
+# rs.Command('_CurveBoolean AllRegions _Enter')
+# rs.DeleteObjects(silscrv)
 
 
 #flats = [rg.Curve.ProjectToPlane(e, rs.WorldXYPlane()) for e in edgecrvs]
