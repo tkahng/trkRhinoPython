@@ -110,6 +110,12 @@ def setBrepFA(obj):
     rs.SetUserText(obj, "areapy", str(area[1]))
     rs.DeleteObjects(faces)
 
+def setObjArea(obj):
+    area = calcArea(obj)
+    rs.SetUserText(obj, "area", str(area[0]))
+    rs.SetUserText(obj, "areapy", str(area[1]))
+    return area[0]
+
 def setObjAreaValue(obj):
     if rs.IsSurface(obj):
         setSrfAreaValue(obj)
@@ -150,17 +156,27 @@ def castToM(islen, value):
 #     else:
 #         return value
 
+# def calcCrvArea(crv):
+#     crv = rs.coercegeometry(crv)
+#     area = Rhino.Geometry.AreaMassProperties.Compute(crv)
+#     totalArea = round(castToM(False, area), 2)
+#     totalAreaPy = round(totalArea/3.3058, 2)
+#     return [totalArea, totalAreaPy]
+
 def calcArea(srf):
-    area = rs.SurfaceArea(srf)[0]
+    area = Rhino.Geometry.AreaMassProperties.Compute(rs.coercegeometry(srf)).Area
+    # area = rs.SurfaceArea(srf)[0]
     totalArea = round(castToM(False, area), 2)
     totalAreaPy = round(totalArea/3.3058, 2)
     return [totalArea, totalAreaPy]
     # txt = rs.ClipboardText(totalArea)
 
 def calcAreas(srfs):
+
     areas = []
     for srf in srfs:
-        areas.append(rs.SurfaceArea(srf)[0])
+        # areas.append(rs.SurfaceArea(srf)[0])
+        areas.append(Rhino.Geometry.AreaMassProperties.Compute(rs.coercegeometry(srf)).Area)
     # totalArea = round(castToM(False, sum(areas)), 2)
     # totalAreaPy = round(totalArea/3.3058, 2)
     totalArea = castToM(False, sum(areas))

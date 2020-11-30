@@ -1,6 +1,7 @@
 import rhinoscriptsyntax as rs
 import scriptcontext as sc
 import trkRhinoPy as trp
+# from trkRhinoPy import BrepFootPrintRegion
 import Rhino
 
 ids = rs.GetObjects("select polysrf", rs.filter.polysurface|rs.filter.surface, preselect=True)
@@ -14,15 +15,21 @@ breps = [rs.coercegeometry(id) for id in ids]
 # for i in boundary:
 #     sc.doc.Objects.AddCurve(i)
 
-sils = []
 
-for brep in breps:
-    edges = brep.Edges
-    edgecrvs = [e.DuplicateCurve() for e in edges]
-    sils.extend(edgecrvs)
-print sils
+if rs.ExeVersion() == 7:
+    boundary = trp.BrepFootPrintRegion(breps)
+    silscrv = [sc.doc.Objects.AddCurve(sil) for sil in boundary]
+    map(trp.setObjArea, silscrv)
+    rs.UnselectAllObjects()
+    rs.SelectObjects(silscrv)
 
-if rs.ExeVersion() == '6':
+elif rs.ExeVersion() == 6:
+    sils = []
+    for brep in breps:
+        edges = brep.Edges
+        edgecrvs = [e.DuplicateCurve() for e in edges]
+        sils.extend(edgecrvs)
+    # print sils
     silscrv = [sc.doc.Objects.AddCurve(sil) for sil in sils]
     rs.UnselectAllObjects()
     rs.SelectObjects(silscrv)
