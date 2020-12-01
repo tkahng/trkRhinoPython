@@ -16,8 +16,7 @@
 	"python.terminal.activateEnvInCurrentTerminal": true,
 	"python.jediEnabled": false,
 	"python.languageServer": "Microsoft",
-	"python.formatting.provider": "black",
-	"python.pythonPath": "C:\\Miniconda3\\envs\\clr\\python.exe"
+	"python.formatting.provider": "black"
 	// "python.analysis.extraPaths": [
 	//     "..\\ironpython-stubs\\release\\stubs.min",
 	//     // "..\\pythonstubs\\stubs\\Rhino\\Rhino-stubs",
