@@ -33,7 +33,7 @@ clr.AddReferenceToFileAndPath(dllpath)
 import StraightSkeletonNet
 #import StraightSkeletonNet.Primitives
 
-
+tol = sc.doc.ModelAbsoluteTolerance
 
 
 def convertPolyline_to_polylineControlPts(polyline):
@@ -112,5 +112,29 @@ def straightSkeleton_2DroofFaces(building_topSrf_brep):
     
     return roof2DFacePolylines
 
+def ptonface(pt, face, relation):
+    rc, u, v = face.ClosestPoint(pt)
+    if rc:
+        return face.IsPointOnFace(u, v) == relation
 
-a = straightSkeleton_2DroofFaces(brep)
+def SkeletonNet(inputbrep):
+    inside = Rhino.Geometry.PointFaceRelation.Interior
+    outside = Rhino.Geometry.PointFaceRelation.Exterior
+    onborder = Rhino.Geometry.PointFaceRelation.Boundary
+    brepface = inputbrep.Faces[0]
+    polygons = straightSkeleton_2DroofFaces(inputbrep)
+    spine = []
+    skeleton = []
+    
+    for poly in polygons:
+        for seg in poly.GetSegments():
+            if not ptonface(seg.From, brepface, outside) and not ptonface(seg.To, brepface, onborder):
+                skeleton.append(seg)
+    
+    for s in skeleton:
+        if ptonface(s.From, brepface, inside) and ptonface(s.To, brepface, inside):
+            spine.append(s)
+    
+    return polygons, skeleton, spine
+
+Polygons, Skeleton, Spine = SkeletonNet(brep)
