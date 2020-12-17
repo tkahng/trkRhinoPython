@@ -21,7 +21,10 @@ import clr
 import os
 import gc
 
-clr.AddReferenceToFileAndPath(dllpath)
+import os
+#print(os.environ['USERPROFILE']+'\AppData\Roaming\Grasshopper\Libraries\StraightSkeletonNet.dll')
+
+clr.AddReferenceToFileAndPath(os.environ['USERPROFILE']+'\AppData\Roaming\Grasshopper\Libraries\StraightSkeletonNet.dll')
 
 #straightSkeleton_dll_loaded_Success = "StraightSkeletonNet" in [assembly.GetName().Name for assembly in clr.References]
 
