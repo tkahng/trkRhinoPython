@@ -2,57 +2,22 @@ import Rhino
 import rhinoscriptsyntax as rs
 import scriptcontext as sc
 
-from Rhino import *
+txt = rs.GetObject(message='select text', filter=512, preselect=True)
 
-import Rhino.Geometry
+if rs.IsText(txt):
+    text = rs.TextObjectText(txt)
+    color = rs.ObjectColor(txt)
 
-Rhino.Geometry.Curve.CreateBooleanDifference()
+objs = rs.GetObjects(message='select objs', preselect=True)
 
-Rhino.Geometry.Curve.CreateBooleanRegions()
+def AddTag(obj, text, color):
+    box = rs.BoundingBox(obj)
+    mid = (box[0] + box[-2])/2
+    tag = rs.AddTextDot(text, mid)
+    rs.SetUserText(obj, 'tag', text)
+    rs.ObjectColor(obj, color)
+    group = rs.AddGroup()
+    rs.AddObjectsToGroup([obj, tag], group)
 
-
-print(rs.SdkVersion())
-print("Executable Version:", rs.ExeVersion())
-# ids = rs.GetObjects("select polysrf", rs.filter.polysurface|rs.filter.surface, preselect=True)
-
-# rs.EnableRedraw(False)
-
-# breps = [rs.coercegeometry(id) for id in ids]
-
-# sils = []
-
-# for brep in breps:
-#     edges = brep.Edges
-#     edgecrvs = [e.DuplicateCurve() for e in edges]
-#     sils.extend(edgecrvs)
-# print sils
-
-# silscrv = [sc.doc.Objects.AddCurve(sil) for sil in sils]
-# rs.UnselectAllObjects()
-# rs.SelectObjects(silscrv)
-# rs.Command('_CurveBoolean AllRegions _Enter')
-# rs.DeleteObjects(silscrv)
-
-
-#flats = [rg.Curve.ProjectToPlane(e, rs.WorldXYPlane()) for e in edgecrvs]
-#print flats
-#a = flats
-#
-#crvunion = rg.Curve.CreateBooleanUnion(flats, Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
-#print list(crvunion)
-
-# brep = rs.coercebrep(objid)
-
-# # edges = brep.Edges
-
-# # a =  brep.Edges[0].Valence
-# # Rhino.Geometry.BrepEdge.Valence.__repr__()
-# # print a.__repr__()
-
-# # print dir(brep.Edges[0])
-
-# for edge in brep.Edges:
-#     # print edge.Valence  
-#     if edge.Valence == Rhino.Geometry.EdgeAdjacency.Interior:
-#         print edge
-#         sc.doc.Objects.AddCurve(edge.EdgeCurve)
+if objs:
+    map(lambda x: AddTag(x, text, color), objs)
