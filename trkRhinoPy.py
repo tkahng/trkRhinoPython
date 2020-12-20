@@ -79,8 +79,10 @@ def swapParentLayer(obj, newparent):
     layer = rs.ObjectLayer(obj)
     if "::" in layer:
         splitlayer = layer.split("::")
-        currentParent = splitlayer[0]
-        newlayer = layer.replace(currentParent, newparent)
+        # currentParent = splitlayer[0]
+        splitlayer[0] = newparent
+        newlayer = "::".join(splitlayer)
+        # newlayer = layer.replace(currentParent, newparent)
         rs.ObjectLayer(obj, newlayer)
 
 
