@@ -15,7 +15,7 @@
 
 	"python.terminal.activateEnvInCurrentTerminal": true,
 	"python.jediEnabled": false,
-	"python.languageServer": "Microsoft",
+	"python.languageServer": "Default",
 	// "python.formatting.provider": "black"
 	// "python.analysis.extraPaths": [
 	//     "..\\ironpython-stubs\\release\\stubs.min",
